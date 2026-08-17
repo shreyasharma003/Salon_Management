@@ -1,7 +1,8 @@
 package com.salon.Artist_service.controller;
 
 import com.salon.Artist_service.dto.ApiResponse;
-import com.salon.Artist_service.entity.Artist;
+import com.salon.Artist_service.dto.ArtistRequestDto;
+import com.salon.Artist_service.dto.ArtistResponseDto;
 import com.salon.Artist_service.services.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,9 +26,9 @@ public class ArtistController {
     private ArtistService artistService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Artist>> createArtist(@RequestBody Artist artist) {
-        Artist createdArtist = artistService.createArtist(artist);
-        ApiResponse<Artist> response = ApiResponse.<Artist>builder()
+    public ResponseEntity<ApiResponse<ArtistResponseDto>> createArtist(@RequestBody ArtistRequestDto artistRequestDto) {
+        ArtistResponseDto createdArtist = artistService.createArtist(artistRequestDto);
+        ApiResponse<ArtistResponseDto> response = ApiResponse.<ArtistResponseDto>builder()
                 .message("Artist created successfully")
                 .data(createdArtist)
                 .build();
@@ -35,21 +36,21 @@ public class ArtistController {
     }
 
     @GetMapping("/getAllArtists")
-    public ResponseEntity<List<Artist>> getAllArtists() {
-        List<Artist> artists = artistService.getAllArtists();
+    public ResponseEntity<List<ArtistResponseDto>> getAllArtists() {
+        List<ArtistResponseDto> artists = artistService.getAllArtists();
         return ResponseEntity.ok(artists);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Artist> getArtistById(@PathVariable Long id) {
-        Artist artist = artistService.getArtistById(id);
+    public ResponseEntity<ArtistResponseDto> getArtistById(@PathVariable Long id) {
+        ArtistResponseDto artist = artistService.getArtistById(id);
         return ResponseEntity.ok(artist);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<Artist>> updateArtist(@PathVariable Long id, @RequestBody Artist artistDetails) {
-        Artist updatedArtist = artistService.updateArtist(id, artistDetails);
-        ApiResponse<Artist> response = ApiResponse.<Artist>builder()
+    public ResponseEntity<ApiResponse<ArtistResponseDto>> updateArtist(@PathVariable Long id, @RequestBody ArtistRequestDto artistRequestDto) {
+        ArtistResponseDto updatedArtist = artistService.updateArtist(id, artistRequestDto);
+        ApiResponse<ArtistResponseDto> response = ApiResponse.<ArtistResponseDto>builder()
                 .message("Artist updated successfully")
                 .data(updatedArtist)
                 .build();

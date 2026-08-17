@@ -1,9 +1,38 @@
 spring:
   application:
     name: apigateway_service
-
   config:
-    import: "configserver:http://localhost:8888"
+    import: "optional:configserver:"
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      routes:
+        - id: artist-service-route
+          uri: lb://Artist_service
+          predicates:
+            - Path=/artist_service/**
+          filters:
+            - StripPrefix=1
 
 server:
   port: 8080
+
+eureka:
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true
