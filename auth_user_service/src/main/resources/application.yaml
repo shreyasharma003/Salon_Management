@@ -1,9 +1,8 @@
 spring:
   application:
-    name: eureka_server
-
+    name: auth_user_service
   config:
     import: "configserver:http://localhost:8888"
 
 server:
-  port: 8761
+  port: 8081

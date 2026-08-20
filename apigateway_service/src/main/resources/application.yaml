@@ -3,7 +3,7 @@ spring:
     name: apigateway_service
 
   config:
-    import: "configserver:http://localhost:8888"
+    import: "configserver:http://localhost:8888"0
 
 server:
   port: 8080
