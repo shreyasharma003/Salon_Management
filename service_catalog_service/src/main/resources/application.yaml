@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: service_catalog_service
+
+  config:
+    import: "configserver:http://localhost:8888"
+
+server:
+  port: 8086
