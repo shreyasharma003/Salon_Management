@@ -1,5 +1,6 @@
 package com.salon.customerservice.service.impl;
 
+import com.salon.customerservice.dto.eventDto.CustomerCreatedEvent;
 import com.salon.customerservice.dto.inDto.CustomerRequest;
 import com.salon.customerservice.dto.outDto.CustomerResponse;
 import com.salon.customerservice.entity.Customer;
@@ -9,6 +10,7 @@ import com.salon.customerservice.exception.CustomerNotFoundException;
 import com.salon.customerservice.mapper.CustomerMapper;
 import com.salon.customerservice.repository.CustomerRepository;
 import com.salon.customerservice.service.CustomerService;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,13 +19,16 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
+    private final KafkaTemplate<String, CustomerCreatedEvent> kafkaTemplate;
 
     public CustomerServiceImpl(
             CustomerRepository customerRepository,
-            CustomerMapper customerMapper
+            CustomerMapper customerMapper,
+            KafkaTemplate<String, CustomerCreatedEvent> kafkaTemplate
     ){
         this.customerRepository = customerRepository;
         this.customerMapper = customerMapper;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     @Override
@@ -45,11 +50,21 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer savedCustomer = customerRepository.save(customer);
 
+        //Kafka Event
+        CustomerCreatedEvent customerCreatedEvent = new CustomerCreatedEvent(
+                "CUSTOMER_CREATED",
+                savedCustomer.getId(),
+                savedCustomer.getName()
+        );
+
+        kafkaTemplate.send("customer-events",  customerCreatedEvent);
+
         return customerMapper.toResponse(savedCustomer);
     }
 
     @Override
     public List<CustomerResponse> getAllCustomers() {
+
 
         return customerRepository.findAll()
                 .stream()
