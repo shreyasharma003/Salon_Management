@@ -29,22 +29,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String authorizationHeader = request.getHeader("Authorization");
 
-        System.out.println(
-                "JWT FILTER → " +
-                        request.getRequestURI()
-        );
-
-        System.out.println(
-                "Authorization Header → " +
-                        authorizationHeader
-        );
-
-
         if(authorizationHeader == null || !authorizationHeader.startsWith("Bearer "))
         {
-            System.out.println(
-                    "JWT FILTER → No Bearer token"
-            );
+
             filterChain.doFilter(request, response);
             return;
         }

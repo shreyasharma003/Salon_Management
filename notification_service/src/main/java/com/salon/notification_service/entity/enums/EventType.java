@@ -1,0 +1,15 @@
+package com.salon.notification_service.entity.enums;
+
+public enum EventType {
+    CUSTOMER_CREATED,
+    ORDER_CONFIRMED,
+    ORDER_COMPLETED,
+    ORDER_CANCELLED,
+    ORDER_UPDATED,
+    INVENTORY_LOW,
+    INVENTORY_OUT_OF_STOCK,
+    FEEDBACK_RECEIVED,
+    PAYMENT_SUCCEEDED,
+    PAYMENT_FAILED,
+    BILL_GENERATED
+}
