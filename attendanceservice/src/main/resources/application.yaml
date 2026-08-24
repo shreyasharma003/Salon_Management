@@ -1,6 +1,6 @@
 spring:
   application:
-    name: artist_service
+    name: attendanceservice
   config:
     import: "configserver:http://localhost:8888"
 
