@@ -26,7 +26,7 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
 
       properties:
-        spring.json.type.mapping: customerCreatedEvent:com.salon.notification_service.dto.eventDto.CustomerCreatedEvent
+        spring.json.type.mapping: customerCreatedEvent:com.salon.notification_service.dto.eventDto.CustomerCreatedEvent,inventoryEvent:com.salon.notification_service.dto.eventDto.InventoryEvent
         spring.json.trusted.packages: com.salon.notification_service.dto.eventDto
 
 server:
