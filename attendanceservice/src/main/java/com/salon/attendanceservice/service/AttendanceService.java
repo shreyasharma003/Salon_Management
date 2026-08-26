@@ -16,6 +16,8 @@ public interface AttendanceService {
 
     List<AttendanceResponse> getAllAttendance();
 
+    AttendanceResponse getAttendanceByArtistIdAndDate(Long artistId, LocalDate date);
+
     List<AttendanceResponse> getAttendanceByArtistIdAndStatus(Long artistId, AttendanceStatus status);
 
     List<AttendanceResponse> getAttendanceByDate(LocalDate date);

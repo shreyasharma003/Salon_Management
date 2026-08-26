@@ -7,8 +7,12 @@ import com.salon.Artist_service.exception.ResourceNotFoundException;
 import com.salon.Artist_service.mapper.ArtistMapper;
 import com.salon.Artist_service.repository.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -50,6 +54,7 @@ public class ArtistServiceImpl implements ArtistService {
         Artist savedArtist = artistRepository.save(updatedArtist);
         return artistMapper.toResponseDto(savedArtist);
     }
+
 
     @Override
     public void deleteArtist(Long id) {

@@ -75,6 +75,25 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
+    public AttendanceResponse getAttendanceByArtistIdAndDate(
+            Long artistId,
+            LocalDate date) {
+
+        Attendance attendance = attendanceRepository
+                .findByArtistIdAndDate(artistId, date)
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Attendance not found for artist "
+                                        + artistId
+                                        + " on "
+                                        + date
+                        ));
+
+        ArtistResponseDto artist = artistClient.getArtistById(artistId);
+        return attendanceMapper.toResponseDto(attendance, artist);
+    }
+
+    @Override
     public List<AttendanceResponse> getAttendanceByDate(LocalDate date) {
         List<Attendance> attendances = attendanceRepository.findByDate(date);
         return attendances.stream()
