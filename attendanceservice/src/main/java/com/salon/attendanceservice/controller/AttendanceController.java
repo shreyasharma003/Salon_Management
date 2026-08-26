@@ -7,6 +7,7 @@ import com.salon.attendanceservice.enums.AttendanceStatus;
 import com.salon.attendanceservice.service.AttendanceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,21 @@ public class AttendanceController {
     public ResponseEntity<ApiResponse<List<AttendanceResponse>>> getAttendanceByArtistId(@PathVariable Long artistId) {
         List<AttendanceResponse> responses = attendanceService.getAttendanceByArtistId(artistId);
         return ResponseEntity.ok(ApiResponse.success(responses));
+    }
+
+
+    @GetMapping("/artist/{artistId}/date/{date}")
+    public ResponseEntity<AttendanceResponse> getAttendanceByArtistIdAndDate(
+            @PathVariable Long artistId,
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+
+        AttendanceResponse response =
+                attendanceService.getAttendanceByArtistIdAndDate(
+                        artistId,
+                        date
+                );
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/date")

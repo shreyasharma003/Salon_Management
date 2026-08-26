@@ -10,5 +10,6 @@ public interface ArtistService {
     ArtistResponseDto getArtistById(Long id);
     ArtistResponseDto updateArtist(Long id, ArtistRequestDto artistRequestDto);
     void deleteArtist(Long id);
+
 }
 

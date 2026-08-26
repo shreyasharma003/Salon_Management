@@ -73,6 +73,19 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public CustomerResponse getCustomerById(long id) {
+
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() ->
+                        new CustomerNotFoundException(
+                                "Customer not found with id: " + id
+                        )
+                );
+
+        return customerMapper.toResponse(customer);
+    }
+
+    @Override
     public CustomerResponse getCustomerByEmail(String email) {
 
         Customer customer = customerRepository.findByEmail(email)
