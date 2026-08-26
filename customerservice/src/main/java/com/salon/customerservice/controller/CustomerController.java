@@ -70,4 +70,12 @@ public class CustomerController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getCustomerCount() {
+
+        return ResponseEntity.ok(
+                customerService.getCustomerCount()
+        );
+    }
 }

@@ -9,6 +9,7 @@ import com.salon.notification_service.exception.NotificationNotFoundException;
 import com.salon.notification_service.repository.NotificationRepository;
 import com.salon.notification_service.service.NotificationService;
 import org.springframework.stereotype.Service;
+import com.salon.notification_service.dto.eventDto.InventoryEvent;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -66,5 +67,43 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationRepository.findById(id).orElseThrow(()-> new NotificationNotFoundException(
                 "Notification not found with id: " +id
         ));
+    }
+
+    @Override
+    public void createNotificationsForInventoryEvent(InventoryEvent event) {
+
+        String message;
+
+        if (event.getEventType() == EventType.INVENTORY_LOW) {
+            message = "Low inventory: " + event.getProductName()
+                    + " (SKU: " + event.getSku() + ")"
+                    + ". Current quantity: " + event.getQuantity();
+
+        } else if (event.getEventType() == EventType.INVENTORY_OUT_OF_STOCK) {
+            message = "Out of stock: " + event.getProductName()
+                    + " (SKU: " + event.getSku() + ")"
+                    + ". Current quantity: " + event.getQuantity();
+
+        } else {
+            return;
+        }
+
+        Notification adminNotification = new Notification();
+        adminNotification.setEventType(event.getEventType());
+        adminNotification.setMessage(message);
+        adminNotification.setRecipientRole(RecipientRole.ADMIN);
+        adminNotification.setStatus(Status.UNREAD);
+        adminNotification.setCreatedAt(LocalDateTime.now());
+
+        notificationRepository.save(adminNotification);
+
+        Notification frontDeskNotification = new Notification();
+        frontDeskNotification.setEventType(event.getEventType());
+        frontDeskNotification.setMessage(message);
+        frontDeskNotification.setRecipientRole(RecipientRole.FRONT_DESK);
+        frontDeskNotification.setStatus(Status.UNREAD);
+        frontDeskNotification.setCreatedAt(LocalDateTime.now());
+
+        notificationRepository.save(frontDeskNotification);
     }
 }

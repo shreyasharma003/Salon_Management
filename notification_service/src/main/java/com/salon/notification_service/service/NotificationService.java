@@ -1,6 +1,7 @@
 package com.salon.notification_service.service;
 
 import com.salon.notification_service.dto.eventDto.CustomerCreatedEvent;
+import com.salon.notification_service.dto.eventDto.InventoryEvent;
 import com.salon.notification_service.entity.Notification;
 import com.salon.notification_service.entity.enums.RecipientRole;
 import com.salon.notification_service.entity.enums.Status;
@@ -13,4 +14,5 @@ public interface NotificationService {
     List<Notification> getNotificationByRecipientRole(RecipientRole recipientRole);
     List<Notification> getUnreadNotifications();
     Notification getNotificationById(Long id);
+    void createNotificationsForInventoryEvent(InventoryEvent event);
 }

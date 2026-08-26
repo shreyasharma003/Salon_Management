@@ -121,5 +121,9 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.delete(customer);
     }
 
+    @Override
+    public long getCustomerCount() {
+        return customerRepository.count();
+    }
 
 }
