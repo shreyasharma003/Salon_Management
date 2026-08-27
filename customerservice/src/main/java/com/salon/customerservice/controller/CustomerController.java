@@ -85,6 +85,15 @@ public class CustomerController {
 
         return ResponseEntity.ok(
                 customerService.getCustomerCount()
+                );
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerResponse> getCustomerById(
+            @PathVariable Long id) {
+
+        return ResponseEntity.ok(
+                customerService.getCustomerById(id)
         );
     }
 }
