@@ -41,7 +41,7 @@ public class CustomerController {
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<CustomerResponse> getCustomerById(
+    public ResponseEntity<CustomerResponse> getCustomerByEmail(
             @PathVariable String email) {
 
         return ResponseEntity.ok(
@@ -76,6 +76,9 @@ public class CustomerController {
 
         return ResponseEntity.ok(
                 customerService.getCustomerCount()
+                );
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<CustomerResponse> getCustomerById(
             @PathVariable Long id) {
