@@ -49,6 +49,15 @@ public class CustomerController {
         );
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerResponse> getCustomerById(
+            @PathVariable Long id) {
+
+        return ResponseEntity.ok(
+                customerService.getCustomerById(id)
+        );
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<CustomerResponse> updateCustomer(
             @PathVariable Long id,
