@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: dashboard_service
+
+  config:
+    import: "configserver:http://localhost:8888"
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    consumer:
+      group-id: dashboard-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+      properties:
+          spring.json.type.mapping: customerCreatedEvent:com.salon.dashboard_service.dto.eventDto.CustomerCreatedEvent,inventoryEvent:com.salon.dashboard_service.dto.eventDto.InventoryEvent,artistEvent:com.salon.dashboard_service.dto.eventDto.ArtistEvent,orderEvent:com.salon.dashboard_service.dto.eventDto.OrderEvent
+          spring.json.trusted.packages: com.salon.dashboard_service.dto.eventDto
