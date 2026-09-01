@@ -24,6 +24,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
+    @ExceptionHandler(BillingNotFoundException.class)
+    public ResponseEntity<ApiResponse<Void>> handleBillingNotFoundException(BillingNotFoundException ex) {
+        ApiResponse<Void> response = ApiResponse.<Void>builder()
+                .message(ex.getMessage())
+                .success(false)
+                .build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();

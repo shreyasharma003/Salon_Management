@@ -18,6 +18,10 @@ public class BillingResponse {
 
     private Long orderId;
 
+    private Long customerId;
+
+    private String customerName;
+
     private BigDecimal amount;
 
     private BigDecimal tax;

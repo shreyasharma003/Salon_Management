@@ -1,0 +1,78 @@
+type Order {
+    id: ID!
+    customerId: ID
+    artistId: ID
+    customerName: String
+    artistName: String
+    serviceName: String
+    quantity: Int
+    price: Float
+    totalAmount: Float
+    status: String
+    createdAt: String
+    updatedAt: String
+}
+
+type Billing {
+    id: ID!
+    orderId: ID
+    customerId: ID
+    customerName: String
+    amount: Float
+    tax: Float
+    finalAmount: Float
+    paymentStatus: String
+}
+
+type Offer {
+    id: ID!
+    billId: ID
+    discountPercentage: Float
+    offerCode: String
+    description: String
+    validFrom: String
+    validTo: String
+    status: String
+}
+
+input CreateOrderInput {
+    customerId: ID!
+    artistId: ID!
+    serviceId: ID!
+    quantity: Int!
+}
+
+input CreateBillingInput {
+    orderId: ID!
+    amount: Float
+    paymentStatus: String
+}
+
+input CreateOfferInput {
+    billId: ID!
+    discountPercentage: Float!
+    offerCode: String!
+    description: String
+    validFrom: String
+    validTo: String
+    status: String
+}
+
+type Query {
+    order(id: ID!): Order
+    orders: [Order!]!
+
+    bill(id: ID!): Billing
+    billByOrderId(orderId: ID!): Billing
+    bills: [Billing!]!
+
+    offer(id: ID!): Offer
+    offerByBillId(billId: ID!): Offer
+    offers: [Offer!]!
+}
+
+type Mutation {
+    createOrder(input: CreateOrderInput!): Order!
+    createBill(input: CreateBillingInput!): Billing!
+    createOffer(input: CreateOfferInput!): Offer!
+}

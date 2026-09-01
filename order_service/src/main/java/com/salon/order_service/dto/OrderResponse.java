@@ -18,6 +18,10 @@ public class OrderResponse {
 
     private Long artistId;
 
+    private String customerName;
+
+    private String artistName;
+
     private String serviceName;
 
     private Integer quantity;

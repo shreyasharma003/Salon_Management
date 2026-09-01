@@ -3,10 +3,7 @@ package com.salon.order_service.controller;
 import com.salon.order_service.dto.ApiResponse;
 import com.salon.order_service.dto.OrderRequest;
 import com.salon.order_service.dto.OrderResponse;
-import com.salon.order_service.entity.Order;
 import com.salon.order_service.service.OrderService;
-import feign.Response;
-import jakarta.persistence.Id;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +35,7 @@ public class OrderController {
 
     }
 
-    @GetMapping("/orders/all")
+    @GetMapping("/all")
     public ResponseEntity<ApiResponse<List<OrderResponse>>> getAllOrders() {
         List<OrderResponse> response = orderservice.getAllOrders();
 
@@ -52,7 +49,7 @@ public class OrderController {
 
     }
 
-    @GetMapping("/orders/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<OrderResponse>> getOrderById(@PathVariable Long id){
         OrderResponse response = orderservice.getOrderById(id);
 
@@ -67,7 +64,7 @@ public class OrderController {
 
     }
 
-    @PutMapping("/orders/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<OrderResponse>> updateOrder(
             @PathVariable Long id,
             @Valid @RequestBody OrderRequest request){
@@ -83,7 +80,7 @@ public class OrderController {
         return ResponseEntity.ok(apiResponse);
     }
 
-    @DeleteMapping("/orders/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteOrder(@PathVariable Long id) {
 
         orderservice.deleteOrder(id);
