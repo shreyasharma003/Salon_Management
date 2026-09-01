@@ -7,38 +7,33 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name="billing")
+@Table(name = "offers")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Billing {
+public class Offer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long orderId;
+    private Long billId;
 
-    private Long customerId;
+    private BigDecimal discountPercentage;
 
-    private String customerName;
+    private String offerCode;
 
-    private String serviceName;
+    private String description;
 
-    private Integer quantity;
+    private LocalDateTime validFrom;
 
-    private BigDecimal totalAmount;
-
-    private BigDecimal discount;
-
-    private BigDecimal tax;
-
-    private BigDecimal finalAmount;
+    private LocalDateTime validTo;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private PaymentStatus paymentStatus;
+    private OfferStatus status;
 }

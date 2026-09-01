@@ -17,14 +17,11 @@ public class OrderRequest {
     @NotNull
     private Long artistId;
 
-    @NotBlank
-    private String serviceName;
+//    @NotNull
+    private Long serviceId;
 
     @NotNull
     @Min(1)
     private Integer quantity;
 
-    @NotNull
-    @DecimalMin(value = "0.0", inclusive = false)
-    private BigDecimal price;
 }

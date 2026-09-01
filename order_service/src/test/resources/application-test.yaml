@@ -1,9 +1,11 @@
 spring:
   application:
     name: orderservice
-
+  cloud:
+    config:
+      enabled: false
   config:
-    import: "configserver:http://localhost:8888"
+    import: optional:
 
   kafka:
     bootstrap-servers: localhost:9092

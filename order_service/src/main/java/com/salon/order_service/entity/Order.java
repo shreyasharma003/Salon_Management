@@ -1,10 +1,7 @@
 package com.salon.order_service.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.apache.kafka.shaded.com.google.protobuf.DescriptorProtos;
 
 import java.math.BigDecimal;
@@ -15,16 +12,18 @@ import java.time.LocalDateTime;
 @Table(name="orders")
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
-@Builder
+@NoArgsConstructor
 public class Order {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long artistid;
+    private Long customerId;
+    private String customerName;
 
-    private Long customerid;
+    private Long artistId;
+    private String artistName;
 
     private String serviceName;
 
